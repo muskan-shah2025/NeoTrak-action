@@ -23,9 +23,9 @@ async function run() {
       deep: true,
       outputFormat: "json", // or "xml"
     });
-
     // Save output
-    const outputPath = path.join(target, "sbom.json");
+    // const outputPath = path.join(target, "sbom.json");
+    const outputPath = path.resolve("sbom.json");
     fs.writeFileSync(outputPath, JSON.stringify(bom, null, 2));
 
     core.info(`✅ SBOM generated at: ${outputPath}`);
