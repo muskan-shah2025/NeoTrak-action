@@ -27557,17 +27557,34 @@ module.exports = parseParams
 var __webpack_exports__ = {};
 const core = __nccwpck_require__(6552);
 
+// index.js
+var core = require_core();
+var path10 = require("path");
+var fs12 = require("fs");
+var { createBom: createBom2 } = require_cdxgen();
 async function run() {
   try {
-    const username = core.getInput('username');
-    const password = core.getInput('password');
-
-    core.info(`✅ Login attempt for user: ${username}`);
-    core.info(`🔐 Authenticating...`);
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    core.info(`🎉 Successfully authenticated user "${username}"`);
+    const username = core.getInput("username");
+    const password = core.getInput("password");
+    core.info(`\u2705 Login attempt for user: ${username}`);
+    const target = path10.resolve("project");
+    core.info(`\u{1F4C2} Resolved target path: ${target}`);
+    if (!fs12.existsSync(path10.join(target, "pom.xml"))) {
+      throw new Error("pom.xml not found in 'project' directory.");
+    }
+    core.info("\u{1F4E6} Found pom.xml, generating SBOM...");
+    const bom = await createBom2(target, {
+      multiProject: false,
+      installDeps: false,
+      deep: true,
+      outputFormat: "json"
+      // or "xml"
+    });
+    const outputPath = path10.resolve("sbom.json");
+    fs12.writeFileSync(outputPath, JSON.stringify(bom, null, 2));
+    core.info(`\u2705 SBOM generated at: ${outputPath}`);
   } catch (error) {
-    core.setFailed(`❌ Action failed: ${error.message}`);
+    core.setFailed(`\u274C Action failed: ${error.message}`);
   }
 }
 
