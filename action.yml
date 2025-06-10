@@ -7,4 +7,4 @@ inputs:
     required: true
 runs:
   using: 'docker'
-  image: 'DockerFile'
+  image: 'Dockerfile'
