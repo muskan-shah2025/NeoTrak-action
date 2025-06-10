@@ -1,0 +1,10 @@
+name: 'My Custom NeoTrak Action'
+description: 'Example custom action that uses username and password'
+inputs:
+  username:
+    required: true
+  password:
+    required: true
+runs:
+  using: 'node16'
+  main: 'index.js'
