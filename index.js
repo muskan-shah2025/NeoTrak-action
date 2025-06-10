@@ -10,7 +10,7 @@ async function run() {
 
     core.info(`✅ Login attempt for user: ${username}`);
     const target = path.resolve("project");
-
+ core.info(`📂 Resolved target path: ${target}`); 
     if (!fs.existsSync(path.join(target, "pom.xml"))) {
       throw new Error("pom.xml not found in 'project' directory.");
     }
